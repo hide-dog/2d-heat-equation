@@ -1,6 +1,9 @@
 import os
 import numpy
 import math
+import time
+
+start=time.time()
 
 # -----------------------
 # -- initial value     --
@@ -8,7 +11,7 @@ import math
 """
 D=1.0,L=1.0に
 """
-nt=200                   # 時間ステップ数
+nt=20                   # 時間ステップ数
 dt=1.0e-2                 # 時間刻み幅
 nx0=100                   # xのセル数
 dx=1.0e-2                 # xの刻み幅
@@ -21,8 +24,7 @@ D=1.0                    # 拡散係数
 u_init=0.0
 
 # 出力情報
-every_outnum=10
-out_dir="1d_plot_x5mm_exact"
+every_outnum=1
 out_file_front="time_"
 out_file_back="d-2"
 out_ext=".csv"
@@ -64,25 +66,23 @@ def output_T(out_num): # 出力について
         outlist.append(str(x[i])+","+str(u[i]))
     outlist='\n'.join(outlist)
 
-    with open(out_dir+"/"+out_file_front+out_num+out_file_back+out_ext,'wt') as f:
+    with open(out_file_front+out_num+out_file_back+out_ext,'wt') as f:
         f.write(outlist)
-
-def cre_dir():
-    try:
-        os.mkdir(out_dir)
-    except:
-        pass
     
 # -- main --
 setup()
-cre_dir()
-output_T("init_")
-
+output_T("0")
 
 for k in range(nt):
     u_cal((k+1)*dt)
     
-    print("nt_______________________________"+str(int(k+1)))
-    output_T(str(k+1))
+    if (k+1) % every_outnum == 0:
+        print("nt_______________________________"+str(int((k+1)/every_outnum)))
+        output_T(str(int((k+1)/every_outnum)))
 
+# 経過時間の書き込み
+end=time.time()-start
+elapsed_time=str(end)+" sec"
+with open("time",'wt') as f:
+    f.write(elapsed_time)
     
