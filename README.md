@@ -12,7 +12,10 @@
 1d_implicit：1次元陰解法のpythonコード
 
 2d_explicit：2次元陽解法のpythonコード 
+
 2d_implicit：2次元陰解法のpythonコード
+
+
 
 /comparison/
 
