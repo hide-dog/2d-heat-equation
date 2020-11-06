@@ -25,3 +25,5 @@
 
 2d_implicit.py：2次元陰解法のpythonコード
 
+  
+This software is released under the MIT License, see LICENSE.
